@@ -1,0 +1,8 @@
+*.pyc
+*~
+__pycache__
+onlineshopvenv
+db.sqlite3
+/static
+/media
+.DS_Store

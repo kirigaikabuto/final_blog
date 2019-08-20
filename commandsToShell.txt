@@ -1,0 +1,63 @@
+#python manage.py shell
+#1
+from blog.models import Post
+from django.contrib.auth.models import User
+#this get QuerySet
+User.objects.all()
+#this get only one element
+User.objects.first()
+User.objects.filter(username='admin')
+user = User.objects.filter(username='admin').first()
+user.id
+user.pk
+#get only one element
+user = User.objects.get(id=1)
+Post.objects.all()
+post1 = Post(author=user,title='Blog 1',content='First Blog Content')
+Post.objects.all()
+post1.save()
+Post.objects.all()
+post1
+#2
+from blog.models import Post
+from django.contrib.auth.models import User
+user = User.objects.get(id=1)
+post2 = Post(author=user1,title='Blog 2',content='Second Post Content')
+#or
+post2 = Post(author_id=user1.id,title='Blog 2',content='Second Post Content')
+post2.save()
+Post.objects.all()
+post = Post.objects.first()
+post.content
+post.date_posted
+post.author
+user1.post_set
+user1.post_set.all()
+user1.post_set.create(title='Blog 3',content='Third post Content')
+Post.objects.all()
+exit()
+#add new data from json
+https://raw.githubusercontent.com/CoreyMSchafer/code_snippets/master/Django_Blog/snippets/posts.json
+import json
+from blog.models import Post
+from django.contrib.auth.models import User
+user = User.objects.filter(username='admin').first()
+posts_json = []
+with open('posts.json') as f:
+    posts_json = json.load(f)
+for post in posts:
+    post = Post(author=user,title=post['title'],content=post['content'])
+    post.save()
+#Pagination
+from django.core.paginator import Paginator
+posts =[1,2,3,4,5]
+p = Paginator(posts,2)
+p.num_pages
+for page in p.page_range:
+    print(page)
+p1 = p.page(1)
+p1
+p1.object_list
+p1.has_previous()
+p1.has_next()
+p1.next_page_number()
